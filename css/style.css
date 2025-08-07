@@ -5,10 +5,39 @@
 * http://www.opensource.org/licenses/mit-license.php
 */
 
-/* Base Typography Settings
+/* Base Typography and Colour Settings
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 :root {
 	font-size:16px;
+	
+	--black: #000;
+	--white: #fff;
+	--nord0: #5761a2;
+	--nord1: #3b4252;
+	--nord2: #e99253;
+	--nord3: #4c566a;
+	--nord4: #e99253;
+	--nord5: #d3dae8;
+	--nord6: #e1b09d;
+	--nord7: #020202;
+	--nord8: #fbede3;
+	--nord9: #81a1c1;
+	--nord10: #5e81ac;
+	--nord11: #bf616a;
+	--nord12: #d08770;
+	--nord13: #efc571;
+	--nord14: #a3be8c;
+	--nord15: #b48ead;
+
+	/* Light theme colors */
+	--background: var(--nord6);
+	--background-soft: var(--nord4);
+	--foreground: var(--nord0);
+	--foreground-soft: color-mix(in srgb, var(--nord6) 30%, var(--nord0));
+	--link: color-mix(in srgb, var(--nord10) 70%, var(--nord0));
+	--link-hover: var(--nord5);
+	--divider: color-mix(in srgb, var(--nord6) 80%, var(--nord0));
+	--focus-outline: var(--nord13);
 }
 
 /* Grid
@@ -65,8 +94,8 @@
   body {
 	margin:0;
 	padding:0;
-	background-color:#ffffff;
-	color:#1a1a1a;
+	background-color:var(--foreground);
+	color:var(--background);
 	font-family:"Open Sans",system-ui;
 	font-size:1.125rem;     				/* 18px */
     font-weight:400;
@@ -179,11 +208,11 @@ footer {
 /* Links
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
   a {
-	color:#2457F5;
+	color:var(--link);
 	text-decoration:underline;
 }
 a:hover {
-	color:#083BDA;
+	color:var(--link-hover);
 }
 
 /* Buttons
@@ -251,43 +280,45 @@ a:hover {
 /* Light theme is default above */
   
 /* Dark theme */
-:root.theme-dark {
+:root[data-theme="dark"] {
 	color-scheme:dark;
-}
-:root.theme-dark :focus-visible {
-	outline: 2px solid #4899F7;
-	outline-offset: 2px;
-  }
-:root.theme-dark body {
-	background-color:#121212;
-	color:#ffffff;
-}
-:root.theme-dark a:not(.button) {
-	color:#4899F7;
-}
-:root.theme-dark a:not(.button):hover {
-	color:#7AB8FF;
+	
+	/* Dark theme color overrides */
+	--background: var(--nord0);
+	--background-soft: var(--nord2);
+	--foreground: var(--nord6);
+	--foreground-soft: color-mix(in srgb, var(--nord6) 70%, var(--nord0));
+	--link: var(--nord8);
+	--link-hover: var(--nord6);
+	--divider: color-mix(in srgb, var(--nord6) 80%, var(--nord0));
 }
 
-/* Auto theme */
-:root.theme-auto {
+:root[data-theme="dark"] :focus-visible {
+	outline: 2px solid var(--focus-outline);
+	outline-offset: 2px;
+}
+
+/* Auto theme - respects system preference */
+:root[data-theme="auto"] {
 	color-scheme:light dark;
 }
+
 @media (prefers-color-scheme:dark) {
-	:root.theme-auto body {
-	background-color:#121212;
-	color:#ffffff;
-}
-:root.theme-auto :focus-visible {
-    outline: 2px solid #4899F7;
-    outline-offset: 2px;
-  }
-:root.theme-auto a:not(.button) {
-	color:#4899F7;
-}
-:root.theme-auto a:not(.button):hover {
-	color:#7AB8FF;
-}
+	:root[data-theme="auto"] {
+		/* Dark theme color overrides for auto mode */
+		--background: var(--nord0);
+		--background-soft: var(--nord2);
+		--foreground: var(--nord6);
+		--foreground-soft: color-mix(in srgb, var(--nord6) 70%, var(--nord0));
+		--link: var(--nord8);
+		--link-hover: var(--nord6);
+		--divider: color-mix(in srgb, var(--nord6) 80%, var(--nord0));
+	}
+	
+	:root[data-theme="auto"] :focus-visible {
+		outline: 2px solid var(--focus-outline);
+		outline-offset: 2px;
+	}
 }
 
 /* Button Text Color Override
